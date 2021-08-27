@@ -1,3 +1,6 @@
+from datetime import datetime
+
+import pytz
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
@@ -71,6 +74,18 @@ class CarModel(models.Model):
 
     def __str__(self):
         return self.title
+
+    def is_discount(self):
+        return self.discount != 0
+
+    def get_price(self):
+        if self.is_discount():
+            return self.price - self.price * self.discount / 100
+        return self.price
+
+    def is_new(self):
+        diff = datetime.now(pytz.timezone('Asia/Tashkent')) - self.created_at
+        return diff.days <= 3
 
     class Meta:
         verbose_name = 'car'
