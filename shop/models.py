@@ -27,7 +27,7 @@ class BrandModel(models.Model):
         verbose_name_plural = 'brands'
 
 
-class ProductTagModel(models.Model):
+class CarTagModel(models.Model):
     title = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -35,13 +35,13 @@ class ProductTagModel(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'product tag'
-        verbose_name_plural = 'product tags'
+        verbose_name = 'car tag'
+        verbose_name_plural = 'car tags'
 
 
-class ProductModel(models.Model):
+class CarModel(models.Model):
     title = models.CharField(max_length=255)
-    image = models.ImageField(upload_to='products')
+    image = models.ImageField(upload_to='cars')
     price = models.FloatField()
     discount = models.PositiveIntegerField(
         default=0,
@@ -55,16 +55,16 @@ class ProductModel(models.Model):
     category = models.ForeignKey(
         CategoryModel,
         on_delete=models.PROTECT,
-        related_name='products'
+        related_name='cars'
     )
     brand = models.ForeignKey(
         BrandModel,
         on_delete=models.PROTECT,
-        related_name='products'
+        related_name='cars'
     )
     tags = models.ManyToManyField(
-        ProductTagModel,
-        related_name='products'
+        CarTagModel,
+        related_name='cars'
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -73,5 +73,5 @@ class ProductModel(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'product'
-        verbose_name_plural = 'products'
+        verbose_name = 'car'
+        verbose_name_plural = 'cars'

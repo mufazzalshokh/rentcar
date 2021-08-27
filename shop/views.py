@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from django.views.generic import ListView
 
-# Create your views here.
+from shop.models import CarModel
+
+
+class CarsListView(ListView):
+    template_name = 'shop-right-sidebar.html'
+    queryset = CarModel.objects.order_by('-pk')
