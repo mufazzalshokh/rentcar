@@ -1,0 +1,52 @@
+<div class="uren-sidebar-catagories_area">
+    <div class="category-module uren-sidebar_categories">
+        <div class="category-module_heading">
+            <h5>Categories</h5>
+        </div>
+        <div class="module-body">
+            <ul class="module-list_item">
+                {% for category in categories %}
+                    <li>
+                        <a {% if request.GET.cat == category.pk|stringformat:'i' %}style="color: #111"{% endif %}
+                           onclick="addUrlParameter('category', '{{ category.pk }}')">{{ category.title }}
+                            <span>(12)</span></a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="uren-sidebar_categories">
+        <div class="uren-categories_title">
+            <h5>Price</h5>
+        </div>
+        <div class="price-filter">
+            <div id="slider-range"></div>
+            <div class="price-slider-amount">
+                <div class="label-input">
+                    <label>price : </label>
+                    <input type="text" id="amount" name="price" placeholder="Add Your Price"/>
+                </div>
+                <!-- <button type="button">Filter</button> -->
+            </div>
+        </div>
+    </div>
+    <div class="uren-sidebar_categories">
+        <div class="uren-categories_title">
+            <h5>Color</h5>
+        </div>
+        <ul class="sidebar-checkbox_list">
+            <li>
+                <a href="javascript:void(0)">Black <span>(6)</span></a>
+            </li>
+            <li>
+                <a href="javascript:void(0)">Blue <span>(2)</span></a>
+            </li>
+            <li>
+                <a href="javascript:void(0)">Red <span>(3)</span></a>
+            </li>
+            <li>
+                <a href="javascript:void(0)">Yellow <span>(0)</span></a>
+            </li>
+        </ul>
+    </div>
+</div>

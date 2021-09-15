@@ -45,6 +45,8 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <!--<link rel="stylesheet" href="assets/css/style.min.css">-->
 
+    {% block extra_css %} {% endblock %}
+
 </head>
 
 <body class="template-color-1">
@@ -104,6 +106,8 @@
 
 <!-- Main JS -->
 <script src="{% static 'js/main.js' %}"></script>
+
+{% block extra_js %} {% endblock %}
 
 </body>
 

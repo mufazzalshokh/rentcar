@@ -2,20 +2,6 @@
 {% load static %}
 
 {% block content %}
-    <!-- Begin Uren's Breadcrumb Area -->
-    <div class="breadcrumb-area">
-        <div class="container">
-            <div class="breadcrumb-content">
-                <h2>Blog Format</h2>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li class="active">Video</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!-- Uren's Breadcrumb Area End Here -->
-
     <!-- Begin Uren's Blog Video Format Area -->
     <div class="uren-blog_area uren-blog-details">
         <div class="container-fluid">
@@ -104,7 +90,8 @@
                             <h4 class="uren-blog-sidebar-title">Comments</h4>
                             <div class="recent-comment">
                                 <div class="user-img">
-                                    <img class="img-full" src="{% static 'images/blog/admin.jpg' %}" alt="Uren's Blog Image">
+                                    <img class="img-full" src="{% static 'images/blog/admin.jpg' %}"
+                                         alt="Uren's Blog Image">
                                 </div>
                                 <div class="user-info">
                                     <span>HasTech say:</span>
@@ -113,7 +100,8 @@
                             </div>
                             <div class="recent-comment">
                                 <div class="user-img">
-                                    <img class="img-full" src="{% static 'images/blog/user.jpg' %}" alt="Uren's Blog Image">
+                                    <img class="img-full" src="{% static 'images/blog/user.jpg' %}"
+                                         alt="Uren's Blog Image">
                                 </div>
                                 <div class="user-info">
                                     <span>Kathy Young say:</span>
@@ -122,7 +110,8 @@
                             </div>
                             <div class="recent-comment">
                                 <div class="user-img">
-                                    <img class="img-full" src="{% static 'images/blog/admin.jpg' %}" alt="Uren's Blog Image">
+                                    <img class="img-full" src="{% static 'images/blog/admin.jpg' %}"
+                                         alt="Uren's Blog Image">
                                 </div>
                                 <div class="user-info">
                                     <span>HasTech say:</span>
@@ -131,7 +120,8 @@
                             </div>
                             <div class="recent-comment">
                                 <div class="user-img">
-                                    <img class="img-full" src="{% static 'images/blog/user.jpg' %}" alt="Uren's Blog Image">
+                                    <img class="img-full" src="{% static 'images/blog/user.jpg' %}"
+                                         alt="Uren's Blog Image">
                                 </div>
                                 <div class="user-info">
                                     <span>Kathy Young say:</span>
@@ -142,16 +132,15 @@
                         <div class="uren-blog-sidebar">
                             <h4 class="uren-blog-sidebar-title">Tags</h4>
                             <ul class="uren-tags_list">
-                                <li><a href="javascript:void(0)">Sports</a></li>
-                                <li><a href="javascript:void(0)">Car</a></li>
-                                <li><a href="javascript:void(0)">Vehicle</a></li>
-                                <li><a href="javascript:void(0)">Bike</a></li>
-                                <li><a href="javascript:void(0)">Motorcycle</a></li>
+                                {% for tag in object.tags.all %}
+                                    <li><a href="{% url 'posts:list' %}?tag={{ car.tag.title }}">{{ car.tag.title }}</a></li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-9 order-lg-2 order-1">
+{#                href="{% url 'blog:blog-detail' pk=blog.pk %}">{{ blog.title }}</a></span>#}
                     <div class="blog-item">
                         <div class="embed-responsive embed-responsive-16by9">
                             <iframe src="https://www.youtube.com/embed/-lG0kDeuSJk"
@@ -231,58 +220,69 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="uren-comment-section">
-                            <h3>03 comment</h3>
-                            <ul>
-                                <li>
-                                    <div class="author-avatar">
-                                        <img src="{% static 'images/blog/user.jpg' %}" alt="User">
-                                    </div>
-                                    <div class="comment-body">
-                                        <span class="reply-btn"><a href="javascript:void(0)">reply</a></span>
-                                        <h5 class="comment-author">Anny Adams</h5>
-                                        <div class="comment-post-date">
-                                            25 September, 2019 at 10:30am
-                                        </div>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim maiores
-                                            adipisci
-                                            optio ex,
-                                            laboriosam
-                                            facilis non pariatur itaque illo sunt?</p>
-                                    </div>
-                                </li>
-                                <li class="comment-children">
-                                    <div class="author-avatar">
-                                        <img src="{% static 'images/blog/admin.jpg' %}" alt="Admin">
-                                    </div>
-                                    <div class="comment-body">
-                                        <span class="reply-btn"><a href="javascript:void(0)">reply</a></span>
-                                        <h5 class="comment-author">Edwin Adams</h5>
-                                        <div class="comment-post-date">
-                                            25 September, 2019 at 11:00am
-                                        </div>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim maiores
-                                            adipisci
-                                            optio ex,
-                                            laboriosam
-                                            facilis non pariatur itaque illo sunt?</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="author-avatar">
-                                        <img src="{% static 'images/blog/user.jpg' %}" alt="User">
-                                    </div>
-                                    <div class="comment-body">
-                                        <span class="reply-btn"><a href="javascript:void(0)">reply</a></span>
-                                        <h5 class="comment-author">Anny Adams</h5>
-                                        <div class="comment-post-date">
-                                            25 September, 2019 at 06:50pm
-                                        </div>
-                                        <p>Thank You :)</p>
-                                    </div>
-                                </li>
-                            </ul>
+                        <div class="blog__details__btns">
+                            <div id="comment-section" class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    {% if object.get_prev %}
+                                        <a href="{% url 'posts:detail' pk=object.get_prev.pk %}
+                                           class=" blog__details__btns__item">
+                                        <p><span class="arrow_left"></span> Previous Pod</p>
+                                        <h5>I{{ object.get_prev.title }}</h5>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    {% if object.get_next %}
+                                        <a href="{% url 'posts:detail' pk=object.get_next.pk %}"
+                                           class="blog__details__btns__item blog__details__btns__item--next">
+                                            <p>Next Pod <span class="arrow_right"></span></p>
+                                            <h5>{{ object.get_next.title }}</h5>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <ul>
+                                        {% for comment in object.get_comments %}
+                                            <li class="media">
+                                                <div class="media-body">
+                                                <span class="text-muted pull-right">
+                                                    <small class="text-muted">
+                                                        {{ comment.created_at|timesince }}
+                                                    </small>
+                                                </span>
+                                                    <strong>{{ comment.name }}</strong>
+                                                    <p>
+                                                        {{ comment.comment }}
+                                                    </p>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
+{#                        <div class="uren-comment-section">#}
+{#                            <h3>03 comment</h3>#}
+{#                            <ul>#}
+{#                                {% for comment in object.get_comments %}#}
+{#                                    <li>#}
+{#                                        <div class="author-avatar">#}
+{#                                            <img src="{% static 'images/blog/user.jpg' %}" alt="User">#}
+{#                                        </div>#}
+{#                                        <div class="comment-body">#}
+{#                                            <span class="reply-btn"><a href="javascript:void(0)">reply</a></span>#}
+{#                                            <h5 class="comment-author">{{ comment.name }}</h5>#}
+{#                                            <div class="comment-post-date">#}
+{#                                                {{ comment.created_at|timesince }}#}
+{#                                            </div>#}
+{#                                            <p>{{ comment.comment }}</p>#}
+{#                                        </div>#}
+{#                                    </li>#}
+{#                                {% endfor %}#}
+{#                            </ul>#}
+{#                        </div>#}
                         <div class="uren-blog-comment-wrapper">
                             <h3>leave a reply</h3>
                             <p>Your email address will not be published. Required fields are marked *</p>
@@ -295,11 +295,11 @@
                                         </div>
                                         <div class="col-lg-4 col-md-4">
                                             <label>Name</label>
-                                            <input type="text" class="coment-field" placeholder="Name">
+                                            <input name="name" type="text" class="coment-field" placeholder="Name">
                                         </div>
                                         <div class="col-lg-4 col-md-4">
                                             <label>Email</label>
-                                            <input type="text" class="coment-field" placeholder="Email">
+                                            <input name="email" type="text" class="coment-field" placeholder="Email">
                                         </div>
                                         <div class="col-lg-4 col-md-4">
                                             <label>Website</label>
