@@ -35,18 +35,24 @@
             <h5>Color</h5>
         </div>
         <ul class="sidebar-checkbox_list">
-            <li>
-                <a href="javascript:void(0)">Black <span>(6)</span></a>
-            </li>
-            <li>
-                <a href="javascript:void(0)">Blue <span>(2)</span></a>
-            </li>
-            <li>
-                <a href="javascript:void(0)">Red <span>(3)</span></a>
-            </li>
-            <li>
-                <a href="javascript:void(0)">Yellow <span>(0)</span></a>
-            </li>
+            {% for color in colors %}
+                <label style="background: {{ color.code }}">
+                    <a type="radio" onclick="addUrlParameter('color', '{{ color.pk }}')">{{ color.title }}
+                        <span>(6)</span>
+                    </a>
+                </label>
+            {% endfor %}
         </ul>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+

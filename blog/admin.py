@@ -23,4 +23,3 @@ class CommentModelAdmin(admin.ModelAdmin):
     list_display = ['name', 'email', 'phone', 'created_at']
     list_filter = ['created_at']
     search_fields = ['name', 'email']
-

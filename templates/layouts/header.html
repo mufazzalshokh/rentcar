@@ -1,5 +1,6 @@
 {% load static %}
 {% load i18n %}
+{% load my_tags %}
 
 <!-- Begin Uren's Header Main Area -->
 <header class="header-main_area bg--sapphire">
@@ -10,19 +11,22 @@
                     <div class="main-menu_area position-relative">
                         <nav class="main-nav">
                             <ul>
-                                <li class="dropdown-holder "><a href="{% url 'pages:home' %}">Home</a></li>
-                                <li class="megamenu-holder "><a href="{% url 'cars:list' %}">Shop Cars</a></li>
-                                <li class=""><a href="#">About Us</a></li>
-                                <li class=""><a href="{% url 'pages:contact' %}">Contact</a></li>
-                                <li class=""><a href="{% url 'posts:list' %}">Blog </a></li>
-                                <li class=""><a href="javascript:void(0)">Pages<i class="ion-ios-arrow-down"></i></a>
+                                <li class="dropdown-holder "><a href="{% url 'pages:home' %}">{% trans 'Home' %}</a>
+                                </li>
+                                <li class="megamenu-holder "><a href="{% url 'cars:list' %}">{% trans 'Shop Cars' %}</a>
+                                </li>
+                                <li class=""><a href="#">{% trans 'About Us' %}</a></li>
+                                <li class=""><a href="{% url 'pages:contact' %}">{% trans 'Contact' %}</a></li>
+                                <li class=""><a href="{% url 'posts:list' %}">{% trans 'Blog' %}</a></li>
+                                <li class=""><a href="javascript:void(0)">{% trans 'Pages' %}
+                                    <i class="ion-ios-arrow-down"></i></a>
                                     <ul class="hm-dropdown">
-                                        <li><a href="wishlist.html">Wishlist</a></li>
-                                        <li><a href="cart.html">Cart</a></li>
-                                        <li><a href="checkout.html">Checkout</a></li>
-                                        <li><a href="compare.html">Compare</a></li>
-                                        <li><a href="faq.html">FAQ</a></li>
-                                        <li><a href="404.html">404 Error</a></li>
+                                        <li><a href="wishlist.html">{% trans 'Wishlist' %}</a></li>
+                                        <li><a href="cart.html">{% trans 'Cart' %}</a></li>
+                                        <li><a href="checkout.html">{% trans 'Checkout' %}</a></li>
+                                        <li><a href="compare.html">{% trans 'Compare' %}</a></li>
+                                        <li><a href="faq.html">{% trans 'FAQ' %}</a></li>
+                                        <li><a href="404.html">{% trans '404 Error' %}</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -33,30 +37,37 @@
                     <div class="ht-right_area">
                         <div class="ht-menu">
                             <ul>
-                                <li><a href="javascript:void(0)">Currency<i class="fa fa-chevron-down"></i></a>
+                                <li><a href="javascript:void(0)">{% trans 'Currency' %}<i
+                                        class="fa fa-chevron-down"></i></a>
                                     <ul class="ht-dropdown ht-currency">
                                         <li><a href="javascript:void(0)">€ EUR</a></li>
                                         <li class="active"><a href="javascript:void(0)">£ Pound Sterling</a></li>
                                         <li><a href="javascript:void(0)">$ US Dollar</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="javascript:void(0)">Language <i class="fa fa-chevron-down"></i></a>
+                                <li><a href="javascript:void(0)">{% trans 'Language' %}
+                                    <i class="fa fa-chevron-down"></i></a>
                                     <ul class="ht-dropdown">
-                                        <li class="active"><a href="javascript:void(0)"><img
-                                                src="{% static 'images/menu/icon/1.jpg' %}"
-                                                alt="JB's Language Icon">English</a>
-                                        </li>
-                                        <li><a href="javascript:void(0)"><img
-                                                src="{% static 'images/menu/icon/2.jpg' %}"
-                                                alt="JB's Language Icon">Russian</a>
-                                        </li>
-                                        <li><a href="javascript:void(0)"><img
-                                                src="{% static 'images/menu/icon/2.jpg' %}"
-                                                alt="JB's Language Icon">Uzbek</a>
-                                        </li>
+                                        {% get_available_languages as all_langs %}
+                                        {% for l in all_langs %}
+                                            <li class="active">
+                                                <a href="{% get_lang_url request l.0 %}">{{ l.0|upper }}
+                                                    <img src="{% static 'images/menu/icon/1.jpg' %}"
+                                                         alt="JB's Language Icon">{{l}}</a>
+                                            </li>
+                                        {% endfor %}
+                                        {#                                        <li><a href="javascript:void(0)"><img#}
+                                        {#                                                src="{% static 'images/menu/icon/2.jpg' %}"#}
+                                        {#                                                alt="JB's Language Icon">{% trans 'Russian' %}</a>#}
+                                        {#                                        </li>#}
+                                        {#                                        <li><a href="javascript:void(0)"><img#}
+                                        {#                                                src="{% static 'images/menu/icon/2.jpg' %}"#}
+                                        {#                                                alt="JB's Language Icon">{% trans 'Uzbek' %}</a>#}
+                                        {#                                        </li>#}
                                     </ul>
                                 </li>
-                                <li><a href="my-account.html">My Account<i class="fa fa-chevron-down"></i></a>
+                                <li><a href="my-account.html">{% trans 'My Account' %}
+                                    <i class="fa fa-chevron-down"></i></a>
                                     <ul class="ht-dropdown ht-my_account">
 
                                         <li>
@@ -355,10 +366,10 @@
                             <input value="{{ request.GET.q }}" name="q" type="text"
                                    placeholder="Enter your search key ...">
                             <button class="header-search_btn" type="submit"><i
-                                    class="ion-ios-search-strong"><span>Search</span></i></button>
+                                    class="ion-ios-search-strong"><span>{% trans 'Search' %}</span></i></button>
                         </form>
                         <div class="mb-2">
-                            <a style="color: white" href="{% url 'posts:list' %}">Clear filter</a>
+                            <a style="color: white" href="{% url 'posts:list' %}">{% trans 'Clear filter' %}</a>
                         </div>
                     </div>
                 </div>
@@ -597,19 +608,25 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="menu-item-has-children"><a href="javascript:void(0)"><span
-                                class="mm-text">Language</span></a>
-                            <ul class="sub-menu">
-                                <li>
-                                    <a href="javascript:void(0)">
-                                        <span class="mm-text">English</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">
-                                        <span class="mm-text">Français</span>
-                                    </a>
-                                </li>
+                        <li><a href="javascript:void(0)">{% trans 'Language' %}
+                            <i class="fa fa-chevron-down"></i></a>
+                            <ul class="ht-dropdown">
+                                {% get_available_languages as all_langs %}
+                                {% for l in all_langs %}
+                                    <li class="active">
+                                        <a href="{% get_lang_url request l.0 %}">{{ l.0|upper }}
+                                            <img src="{% static 'images/menu/icon/1.jpg' %}"
+                                                 alt="JB's Language Icon">{% trans 'English' %}</a>
+                                    </li>
+                                {% endfor %}
+                                {#                                        <li><a href="javascript:void(0)"><img#}
+                                {#                                                src="{% static 'images/menu/icon/2.jpg' %}"#}
+                                {#                                                alt="JB's Language Icon">{% trans 'Russian' %}</a>#}
+                                {#                                        </li>#}
+                                {#                                        <li><a href="javascript:void(0)"><img#}
+                                {#                                                src="{% static 'images/menu/icon/2.jpg' %}"#}
+                                {#                                                alt="JB's Language Icon">{% trans 'Uzbek' %}</a>#}
+                                {#                                        </li>#}
                             </ul>
                         </li>
                     </ul>
