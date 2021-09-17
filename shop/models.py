@@ -59,6 +59,7 @@ class CarModel(models.Model):
     title = models.CharField(max_length=255, verbose_name=_('title'))
     image = models.ImageField(upload_to='cars', verbose_name=_('image'))
     price = models.FloatField(verbose_name=_('price'))
+    real_price = models.FloatField(verbose_name=_('real_price'), default=0)
     colors = models.ManyToManyField(ColorModel, related_name='cars', verbose_name=_('colors'))
     discount = models.PositiveIntegerField(
         default=0,
@@ -95,11 +96,6 @@ class CarModel(models.Model):
 
     def is_discount(self):
         return self.discount != 0
-
-    def get_price(self):
-        if self.is_discount():
-            return self.price - self.price * self.discount / 100
-        return self.price
 
     def is_new(self):
         diff = datetime.now(pytz.timezone('Asia/Tashkent')) - self.created_at

@@ -11,13 +11,21 @@
                     <div class="main-menu_area position-relative">
                         <nav class="main-nav">
                             <ul>
-                                <li class="dropdown-holder "><a href="{% url 'pages:home' %}">{% trans 'Home' %}</a>
+                                <li class="dropdown-holder ">
+                                    <a href="{% url 'pages:home' %}">{% trans 'Home' %}</a>
                                 </li>
-                                <li class="megamenu-holder "><a href="{% url 'cars:list' %}">{% trans 'Shop Cars' %}</a>
+                                <li class="megamenu-holder ">
+                                    <a href="{% url 'cars:list' %}">{% trans 'Shop Cars' %}</a>
                                 </li>
-                                <li class=""><a href="#">{% trans 'About Us' %}</a></li>
-                                <li class=""><a href="{% url 'pages:contact' %}">{% trans 'Contact' %}</a></li>
-                                <li class=""><a href="{% url 'posts:list' %}">{% trans 'Blog' %}</a></li>
+                                <li class="">
+                                    <a href="#">{% trans 'About Us' %}</a>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'pages:contact' %}">{% trans 'Contact' %}</a>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'posts:list' %}">{% trans 'Blog' %}</a>
+                                </li>
                                 <li class=""><a href="javascript:void(0)">{% trans 'Pages' %}
                                     <i class="ion-ios-arrow-down"></i></a>
                                     <ul class="hm-dropdown">
@@ -53,7 +61,7 @@
                                             <li class="active">
                                                 <a href="{% get_lang_url request l.0 %}">{{ l.0|upper }}
                                                     <img src="{% static 'images/menu/icon/1.jpg' %}"
-                                                         alt="JB's Language Icon">{{l}}</a>
+                                                         alt="JB's Language Icon">{{l.1}}</a>
                                             </li>
                                         {% endfor %}
                                         {#                                        <li><a href="javascript:void(0)"><img#}

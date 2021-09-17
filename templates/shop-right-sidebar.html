@@ -2,6 +2,17 @@
 {% load static %}
 {% load my_tags %}
 
+
+{% block extra_css %}
+    <style>
+        a:hover {
+            cursor: pointer;
+        }
+    </style>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"/>
+{% endblock %}
+
 {% block content %}
 
     <!-- Begin Uren's Shop Right Sidebar Area -->
@@ -109,7 +120,7 @@
                                                        href="single-product.html">{{ car.title }}</a></h6>
                                                 <div class="price-box">
                                                     <span
-                                                            class="new-price">${{ car.get_price }}
+                                                            class="new-price">${{ car.real_price }}
                                                         {% if car.is_discount %}
                                                             <strike class="small">${{ car.price }}</strike>
                                                         {% endif %}
@@ -146,7 +157,7 @@
                                                    href="single-product.html">{{ car.title }}</a>
                                             </h6>
                                             <div class="price-box">
-                                                <span class="new-price">{{ car.get_price }}</span>
+                                                <span class="new-price">{{ car.real_price }}</span>
                                             </div>
                                             <div class="product-short_desc">
                                                 {{ car.content|safe }}
@@ -235,4 +246,6 @@
             window.location.search = searchParams.toString()
         }
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
+
 {% endblock %}
