@@ -1,71 +1,85 @@
-{% extends "registration/registration_base.html" %}
-{% load i18n %}
+{% load static %}
 
-{% block title %}{% trans "Register for an account" %}{% endblock %}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
 
-{% block content %}
-<form method="post" action="">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="{% trans 'Submit' %}" />
-</form>
-{% endblock %}
+    <link rel="stylesheet" href="{% static 'fonts/icomoon/style.css' %}">
 
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
 
-{% comment %}
-**registration/registration_form.html**
-Used to show the form users will fill out to register. By default, has
-the following context:
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 
-``form``
-    The registration form. This will be an instance of some subclass
-    of ``django.forms.Form``; consult `Django's forms documentation
-    <http://docs.djangoproject.com/en/dev/topics/forms/>`_ for
-    information on how to display this in a template.
-{% endcomment %}
+    <!-- Style -->
+    <link rel="stylesheet" href="{% static 'css/login_style.css' %}">
+
+    <title>Register</title>
+</head>
+<body>
 
 
-{#{% extends "registration/registration_base.html" %}#}
-{#{% load i18n %}#}
-{##}
-{#{% block title %}{% trans "Register for an account" %}{% endblock %}#}
-{##}
-{#{% block content %}#}
-{#    <div style="margin-left: 30%">#}
-{#        <div class="col-sm-12 col-md-12 col-lg-6 col-xs-12">#}
-{#            <form method="post">#}
-{#                {% csrf_token %}#}
-{#                {{ form.errors }}#}
-{#                <div class="login-form">#}
-{#                    <h4 class="login-title">{% trans 'Register' %}</h4>#}
-{#                    <div class="row">#}
-{#                        <div class="col-md-6 col-12 mb-20">#}
-{#                            <label for="username">{% trans 'Username' %}</label>#}
-{#                            <input name="username" class="mb-0" type="text" placeholder="First Name">#}
-{#                        </div>#}
-{#                        <div class="col-md-6 col-12 mb-20">#}
-{#                            <label for="username">{% trans 'Email Address' %}*</label>#}
-{#                            <input name="email" class="mb-0" type="email" placeholder="Email Address">#}
-{#                        </div>#}
-{#                        <div class="col-md-6 mb-20">#}
-{#                            <label for="password">{% trans 'Password' %}</label>#}
-{#                            <input name="password1" class="mb-0" type="password" placeholder="Password">#}
-{#                        </div>#}
-{#                        <div class="col-md-6 mb-20">#}
-{#                            <label for="password">{% trans 'Confirm Password' %}</label>#}
-{#                            <input name="password2" class="mb-0" type="password" placeholder="Confirm Password">#}
-{#                        </div>#}
-{#                        <div class="col-md-6 mb-20">#}
-{#                            <button class="btn btn-secondary" type="submit">{% trans 'Register' %}</button>#}
-{#                        </div>#}
-{#                        <div class="col-12">#}
-{#                            <span class="register-button">#}
-{#                                <a href="{% url 'auth_login' %}">{% trans 'Sign in' %}</a>#}
-{#                            </span>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </form>#}
-{#        </div>#}
-{#    </div>#}
-{#{% endblock %}#}
+<div class="d-md-flex half">
+    <div class="bg" style="background-image: url('{% static 'images/bg_1.jpg' %}');"></div>
+    <div class="contents">
+
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-md-12">
+
+                    {% block content %}
+                        <div class="form-block mx-auto">
+                            <div class="text-center mb-5">
+                                <h3 class="text-uppercase">Login</h3>
+                            </div>
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="form-group first">
+                                    <label for="username">Username</label>
+                                    <input name="username" type="text" class="form-control"
+                                           placeholder="Username"
+                                           id="username">
+                                </div>
+                                <div class="form-group first">
+                                    <label for="username">Email</label>
+                                    <input name="email" type="text" class="form-control"
+                                           placeholder="your-email@gmail.com"
+                                           id="username">
+                                </div>
+                                <div class="form-group first">
+                                    <label for="username">Password</label>
+                                    <input name="password1" type="password" class="form-control"
+                                           placeholder="Your Password"
+                                           id="username">
+                                </div>
+                                <div class="form-group last mb-3">
+                                    <label for="password">Confirm Password</label>
+                                    <input name="password2" type="password" class="form-control"
+                                           placeholder="Your Password" id="password">
+                                </div>
+
+                                <div class="mb-5 align-items-center">
+                                    <a class="forgot-pass float-right" href="{% url 'auth_login' %}">Sign in</a>
+                                </div>
+                                <input type="submit" value="Sign up" class="btn btn-block py-2 btn-primary">
+                            </form>
+                        </div>
+                    {% endblock %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/login_main.js' %}"></script>
+</body>
+</html>

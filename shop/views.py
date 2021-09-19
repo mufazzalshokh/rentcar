@@ -1,4 +1,7 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Min, Max
+from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
 
 from shop.models import CarModel, CategoryModel, ColorModel
@@ -47,13 +50,58 @@ class CarsListView(ListView):
         context['colors'] = ColorModel.objects.all()
         # context['price'] = PriceModel.objects.all()
 
-        context['min_price'], context['max_price'] = CarModel.objects.aggregate(
+        min_price, max_price = CarModel.objects.aggregate(
             Min('real_price'),
             Max('real_price')
         ).values()
+
+        # context['min_price'], context['max_price'] = int(min_price), int(max_price)
+        context['min_price'], context['max_price'] = list(
+            map(
+                int,
+                CarModel.objects.aggregate(
+                    Min('real_price'),
+                    Max('real_price')
+                ).values()
+            )
+        )
+
         return context
 
 
 class CarDetailView(DetailView):
     template_name = 'blog-video-format.html'
     model = CarModel
+
+
+class WishListListView(LoginRequiredMixin, ListView):
+    template_name = 'wishlist.html'
+
+    def get_queryset(self):
+        return self.request.user.wishlist.all()
+
+
+@login_required
+def add_wishlist(request, pk):
+    car = get_object_or_404(CarModel, pk=pk)
+    user = request.user
+
+    if user in car.wishlist.all():
+        car.wishlist.remove(user)
+    else:
+        car.wishlist.add(user)
+
+    return redirect(request.GET.get('next', '/'))
+
+
+def add_to_cart(request, pk):
+    cart = request.session.get('cart', [])
+
+    if pk in cart:
+        cart.remove(pk)
+    else:
+        cart.append(pk)
+
+    request.session['cart'] = cart
+
+    return redirect(request.GET.get('next', '/'))

@@ -2,9 +2,12 @@ from datetime import datetime
 
 import pytz
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+
+UserModel = get_user_model()
 
 
 class CategoryModel(models.Model):
@@ -61,6 +64,7 @@ class CarModel(models.Model):
     price = models.FloatField(verbose_name=_('price'))
     real_price = models.FloatField(verbose_name=_('real_price'), default=0)
     colors = models.ManyToManyField(ColorModel, related_name='cars', verbose_name=_('colors'))
+    wishlist = models.ManyToManyField(UserModel, related_name='wishlist')
     discount = models.PositiveIntegerField(
         default=0,
         validators=[
@@ -93,6 +97,11 @@ class CarModel(models.Model):
 
     def __str__(self):
         return self.title
+
+    @staticmethod
+    def get_from_cart(request):
+        cart = request.session.get('cart', [])
+        return CarModel.objects.filter(pk__in=cart)
 
     def is_discount(self):
         return self.discount != 0

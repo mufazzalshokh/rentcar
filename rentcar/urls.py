@@ -9,11 +9,12 @@ urlpatterns = [
 ]
 
 urlpatterns += i18n_patterns(
-    path('accounts/', include('registration.backends.default.urls')),
+    path('accounts/', include('auth.urls')),
     path('admin/', admin.site.urls),
     path('', include('pages.urls', namespace='pages')),
     path('shop/', include('shop.urls', namespace='cars')),
     path('blog/', include('blog.urls', namespace='posts')),
+    path('profile/', include('users.urls', namespace='profile')),
 )
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
